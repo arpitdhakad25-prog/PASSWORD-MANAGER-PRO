@@ -35,7 +35,7 @@ def store():
 
     f.write(f"PASSWORD = {password}\n\n")
 
-
+    f.close()
     
 
 def delete():
@@ -52,6 +52,8 @@ def delete():
 def find():
 
     website = entry.get()
+
+    found = False
 
     with open("password.txt","r") as f:
 
@@ -74,8 +76,23 @@ def find():
             entry1.insert(0,username)
 
             entry2.insert(0,password)
+            
+            found = True
 
-            return
+            break
+
+    if not found:
+
+            
+            entry1.delete(0,tk.END)
+
+            entry2.delete(0,tk.END)
+
+            entry1.insert(0,"NOT FOUND")
+
+            entry2.insert(0,"NOT FOUND")
+
+
 
 hidden = True
 
@@ -95,11 +112,10 @@ def safe():
         hidden = True
 
 
-password = ""
 
 def generator():
 
-    global password
+    password = ""
 
     for i in range(14):
 
@@ -125,23 +141,23 @@ entry2 = tk.Entry(window,width=25,font=("Arial",17),bg="white",fg="blue", show="
 entry2.grid(row=2,column=1)
 
 
-buttonsave = tk.Button(window,text="SAVE",command=store,font=("arial,10"),bg="yellow")
+buttonsave = tk.Button(window,text="SAVE",command=store,font=("Arial",10),bg="yellow")
 
 buttonsave.grid(row=3,column=1)
 
-buttonsearch = tk.Button(window,text="SEACRH",command=find,font=("arial,10"),bg="yellow")
+buttonsearch = tk.Button(window,text="SEARCH",command=find,font=("Arial",10),bg="yellow")
 
 buttonsearch.grid(row=5,column=1)
 
-buttongpass = tk.Button(window,text="GENERATE PASSWORD",command=generator,font=("arial,10"),bg="yellow")
+buttongpass = tk.Button(window,text="GENERATE PASSWORD",command=generator,font=("Arial",10),bg="yellow")
 
 buttongpass.grid(row=7,column=1)
 
-buttonshpass = tk.Button(window,text="SHOW/HIDE PASSWORD",command=safe,font=("arial,10"),bg="yellow")
+buttonshpass = tk.Button(window,text="SHOW/HIDE PASSWORD",command=safe,font=("Arial",10),bg="yellow")
 
 buttonshpass.grid(row=6,column=1)
 
-buttonshclear = tk.Button(window,text="CLEAR",command=delete,font=("arial,10"),bg="yellow")
+buttonshclear = tk.Button(window,text="CLEAR",command=delete,font=("Arial",10),bg="yellow")
 
 buttonshclear.grid(row=4,column=1)
 
